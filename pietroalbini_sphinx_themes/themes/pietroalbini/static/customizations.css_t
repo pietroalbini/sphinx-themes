@@ -1,0 +1,30 @@
+a {
+    color: {{ theme_accent_color }};
+}
+
+h1, h2, h3, h4, h5, h6,
+div.admonition p.admonition-title {
+    font-family: "{{ theme_titles_font }}";
+}
+
+
+/** NIGHT THEME **/
+
+body.night a {
+    color: {{ theme_night_accent_color }};
+}
+
+
+/** PYGMENTS STUFF **/
+
+.highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp,
+.highlight .kr, .highlight .kt, .highlight .nt, .highlight .ow {
+    color: {{ theme_accent_color }};
+}
+
+body.night .highlight .k, .body.night highlight .kc, .body.night highlight .kd,
+body.night .highlight .kn, body.night .highlight .kp,
+body.night .highlight .kr, body.night .highlight .kt,
+body.night .highlight .nt, body.night .highlight .ow {
+    color: {{ theme_night_accent_color }};
+}

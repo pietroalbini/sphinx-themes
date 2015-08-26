@@ -1,0 +1,192 @@
+{%- macro nav_item(link, icon) -%}
+    {% if link %}
+        <a href="{{ link.link|e }}" class="item {{ icon }}">
+            <i class="fa fa-arrow-{{ icon }}"></i>
+        </a>
+    {% else %}
+        <span class="item {{ icon }}">
+            <i class="fa fa-arrow-{{ icon }}"></i>
+        </span>
+    {% endif %}
+{%- endmacro -%}
+
+{%- macro nav_box(extra_classes="") -%}
+<div class="nav-container {{ extra_classes }}">
+    <div>
+        {{ nav_item(prev, "left") }}
+        {{ nav_item(next, "right") }}
+    </div>
+    <div>
+        {% if pagename == master_doc %}
+            <span>
+                <i class="fa fa-bars"></i> Table of contents
+            </span>
+        {% else %}
+            <a href="{{ pathto(master_doc) }}">
+                <i class="fa fa-bars"></i> Table of contents
+            </a>
+        {% endif %}
+    </div>
+</div>
+{%- endmacro -%}
+
+{%- set reldelim1 = reldelim1 is not defined and ' &raquo;' or reldelim1 %}
+{%- set reldelim2 = reldelim2 is not defined and ' |' or reldelim2 %}
+{%- set render_sidebar = (not embedded) and (not theme_nosidebar|tobool) and (sidebars != []) %}
+
+{%- set url_root = pathto('', 1) %}
+{%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
+
+{%- if not embedded and docstitle %}
+    {%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
+{%- else %}
+    {%- set titlesuffix = "" %}
+{%- endif %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+
+        <link rel="stylesheet" href="{{ pathto("_static/pietroalbini.css", 1) }}">
+        <link rel="stylesheet" href="{{ pathto("_static/"+style, 1) }}">
+        <link rel="stylesheet" href="{{ pathto("_static/customizations.css", 1) }}">
+
+        {% if not embedded %}
+
+            <script type="text/javascript">
+                var DOCUMENTATION_OPTIONS = {
+                    URL_ROOT: "{{ url_root }}",
+                    VERSION: "{{ release|e }}",
+                    COLLAPSE_INDEX: false,
+                    FILE_SUFFIX: '{{ '' if no_search_suffix else file_suffix }}',
+                    HAS_SOURCE:  {{ has_source|lower }}
+                };
+            </script>
+
+            <script type="text/javascript" src="{{ pathto("_static/jquery.js", 1) }}"></script>
+            <script type="text/javascript" src="{{ pathto("_static/underscore.js", 1) }}"></script>
+            <script type="text/javascript" src="{{ pathto("_static/doctools.js", 1) }}"></script>
+            <script type="text/javascript" src="{{ pathto("_static/searchtools.js", 1) }}"></script>
+
+            <script type="text/javascript" src="{{ pathto("_static/theme.js", 1) }}"></script>
+            <script type="text/javascript" src="{{ pathto("_static/theme_preferences.js", 1) }}"></script>
+            <script type="text/javascript" src="{{ pathto("_static/theme_search.js", 1) }}"></script>
+
+            <script type="text/javascript" id="searchindexloader"></script>
+
+            {% if favicon %}
+                <link rel="shortcut icon" href="{{ pathto("_static/"+favicon, 1) }}">
+            {% endif %}
+
+        {% endif %}
+
+        {% if hasdoc('about') %}
+            <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
+        {% endif %}
+        {% if hasdoc('genindex') %}
+            <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
+        {% endif %}
+        {% if hasdoc('search') %}
+            <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
+        {% endif %}
+        {% if hasdoc('copyright') %}
+            <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
+        {% endif %}
+        <link rel="top" title="{{ docstitle|e }}" href="{{ pathto(master_doc) }}" />
+        {% if parents %}
+            <link rel="up" title="{{ parents[-1].title|striptags|e }}" href="{{ parents[-1].link|e }}" />
+        {% endif %}
+        {% if next %}
+            <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+        {% endif %}
+        {%- if prev %}
+            <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+        {%- endif %}
+
+        {% block head_extra %}{% endblock %}
+
+    </head>
+    <body role="document">
+        <div class="document">
+            {% block document %}{% endblock %}  {# Kept for BuildTheDocs #}
+            <div class="wrapper headerwrapper">
+                <div class="header">
+                    <h1 class="title">{{ title }}</h1>
+                    <div class="search-bar">
+                        <form action="{{ pathto("search") }}" method="get" id="search">
+                            <input type="text" name="q"
+                                   placeholder="Search in the documentation"
+                                   id="search-input">
+                        </form>
+                        <button type="submit" form="search">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <hr>
+            </div>
+
+            <div class="wrapper">
+                <div class="documentwrapper">
+                    <div class="bodywrapper">
+                        <div class="body" role="main">
+                            {% block body %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
+                <div class="sphinxsidebar" role="navigation" aria-label="main-navigation">
+                    <div class="sphinxsidebarwrapper">
+                        {{ nav_box() }}
+                        {% if sidebars != None %}
+                            {% for sidebartmpl in sidebars %}
+                                {% include sidebartmpl %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="clearer"></div>
+            </div>
+        </div>
+        <div class="wrapper">
+            {{ nav_box("mobile-only") }}
+            <div class="footer">
+                <ul>
+                    <li>Copyright &copy; {{ copyright }}</li>
+                    {%- block footer_extra -%}{%- endblock -%}
+                    <li>
+                        Created using <a href="http://sphinx-doc.org">Sphinx</a>
+                    </li>
+                </ul>
+                <ul class="jsonly preferences">
+                    <li>Available preferences:</li>
+                    <li>
+                        <a href="#" class="preference-night">Enable night mode</a>
+                    </li>
+                    <li><a href="#" class="preference-fastsearch">
+                        Enable fast search
+                    </a></li>
+                </ul>
+                <ul class="jsonly preferences-legal" data-click-next="">
+                    <li>
+                        Preferences and caches will be saved in your computer's
+                        memory.
+                    </li>
+                    <li><a href="#" class="preferences-legal-yes">I agree</a></li>
+                    <li><a href="#" class="preferences-legal-no">
+                        Nevermind, go back
+                    </a></li>
+                </ul>
+                <ul class="nojs preferences-error">
+                    <li>
+                        You need a recent browser with JavaScript enabled to edit
+                        the preferences
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
