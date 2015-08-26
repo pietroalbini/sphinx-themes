@@ -2,4 +2,4 @@ include README.rst
 include LICENSE
 include pietroalbini_sphinx_themes/version
 
-recursive-include pietroalbini_sphinx_themes/themes
+recursive-include pietroalbini_sphinx_themes/themes *
