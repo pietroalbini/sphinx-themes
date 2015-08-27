@@ -1,7 +1,9 @@
 var ThemePreferences = {
 
+    _key: "theme_preferences",
+
     get: function(key) {
-        var preferences = JSON.parse(localStorage.getItem("theme_preferences"));
+        var preferences = JSON.parse(localStorage.getItem(this._key));
         if (preferences === null) {
             preferences = {
                 "night": false,
@@ -19,17 +21,25 @@ var ThemePreferences = {
         var original = this.get();
         original[key] = value;
 
-        localStorage.setItem("theme_preferences", JSON.stringify(original));
+        localStorage.setItem(this._key, JSON.stringify(original));
+        this.apply();
+    },
+
+    toggle: function(key) {
+        var original = this.get();
+        original[key] = !original[key];
+
+        localStorage.setItem(this._key, JSON.stringify(original));
         this.apply();
     },
 
     reset: function() {
-        localStorage.removeItem("theme_preferences");
+        localStorage.removeItem(this._key);
         this.apply();
     },
 
     enabled: function() {
-        return localStorage.getItem("theme_preferences") !== null;
+        return localStorage.getItem(this._key) !== null;
     },
 
     enable: function() {
@@ -37,7 +47,7 @@ var ThemePreferences = {
             return;
         }
 
-        localStorage.setItem("theme_preferences", JSON.stringify(this.get()));
+        localStorage.setItem(this._key, JSON.stringify(this.get()));
         this.apply();
     },
 
@@ -109,7 +119,7 @@ var ThemePreferences = {
         e.preventDefault();
 
         if (ThemePreferences.enabled()) {
-            ThemePreferences.set("night", !ThemePreferences.get("night"));
+            ThemePreferences.toggle("night");
         } else {
             ThemePreferences.show_legal(".preference-night");
         }
@@ -119,7 +129,7 @@ var ThemePreferences = {
         e.preventDefault();
 
         if (ThemePreferences.enabled()) {
-            ThemePreferences.set("fastsearch", !ThemePreferences.get("fastsearch"));
+            ThemePreferences.toggle("fastsearch");
         } else {
             ThemePreferences.show_legal(".preference-fastsearch");
         }
