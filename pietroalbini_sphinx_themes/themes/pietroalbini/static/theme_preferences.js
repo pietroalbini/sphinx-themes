@@ -1,6 +1,8 @@
 var ThemePreferences = {
 
-    _key: "theme_preferences",
+    _key: (function() {
+        return "theme_preferences_"+DOCUMENTATION_OPTIONS.PROJECT;
+    })(),
 
     get: function(key) {
         var preferences = JSON.parse(localStorage.getItem(this._key));
