@@ -59,8 +59,10 @@ var ThemePreferences = {
         $(".preferences-legal").attr("data-click-next", next).show();
     },
 
-    apply: function() {
+    apply: function(light_apply) {
         var preferences = this.get();
+
+        var light = light_apply !== undefined;
 
         if (preferences.night) {
             $("body").addClass("night");
@@ -77,7 +79,7 @@ var ThemePreferences = {
                 $(".search-fastsearch-tip").hide();
             };
 
-            if (ThemeSearch.fastsearch.available()) {
+            if (ThemeSearch.fastsearch.available() || light) {
                 settext();
                 return;
             }
@@ -89,7 +91,7 @@ var ThemePreferences = {
             $(".preference-fastsearch").text("Enable fast search");
             $(".search-fastsearch-tip").show();
 
-            if (ThemeSearch.fastsearch.available()) {
+            if (ThemeSearch.fastsearch.available() && (!light)) {
                 ThemeSearch.fastsearch.disable();
             };
         }
@@ -105,6 +107,7 @@ var ThemePreferences = {
             $(".preferences-legal").hide();
 
             this.apply();
+            $(window).on("storage", this.callback_external_update);
             $(".preference-night").click(this.callback_night);
             $(".preference-fastsearch").click(this.callback_fastsearch);
             $(".preferences-legal-yes").click(this.callback_legal_yes);
@@ -114,6 +117,15 @@ var ThemePreferences = {
     },
 
     // Callbacks
+
+    callback_external_update: function(e) {
+        if (e.key === this._key) {
+            // This will apply the new changes in light mode
+            // Light mode means no changes which can affect other tabs will be
+            // executed
+            ThemePreferences.apply(true);
+        }
+    },
 
     callback_night: function(e) {
         e.preventDefault();
