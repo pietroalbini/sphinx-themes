@@ -16,17 +16,22 @@
         {{ nav_item(prev, "left") }}
         {{ nav_item(next, "right") }}
     </div>
-    <div>
+    <div class="breadcrumb">
         {% if pagename == master_doc %}
             <span>
-                <i class="fa fa-bars"></i> Table of contents
+                <i class="fa fa-file-text-o"></i> Table of contents
             </span>
         {% else %}
-            <a href="{{ pathto(master_doc) }}">
-                <i class="fa fa-bars"></i> Table of contents
-            </a>
+            <i class="fa fa-file-text-o"></i>
+            <a href="{{ pathto(master_doc) }}">Table of contents</a>
         {% endif %}
     </div>
+    {% if parents %}{% for parent in parents %}
+        <div class="breadcrumb">
+            <i class="fa fa-file-o"></i>
+            <a href="{{ parent.link|e }}">{{ parent.title }}</a>
+        </div>
+    {% endfor %}{% endif %}
 </div>
 {%- endmacro -%}
 

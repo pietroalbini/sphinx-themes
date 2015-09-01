@@ -300,6 +300,10 @@ div.nav-container .item {
     transition: padding 0.2s ease-out;
 }
 
+div.nav-container div.breadcrumb i.fa {
+    margin-right: 0.2em;
+}
+
 div.nav-container span {
     color: #cccccc;
 }
