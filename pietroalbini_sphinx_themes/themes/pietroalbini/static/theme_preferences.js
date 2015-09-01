@@ -1,7 +1,11 @@
 var ThemePreferences = {
 
+    _key: (function() {
+        return "theme_preferences_"+DOCUMENTATION_OPTIONS.PROJECT;
+    })(),
+
     get: function(key) {
-        var preferences = JSON.parse(localStorage.getItem("theme_preferences"));
+        var preferences = JSON.parse(localStorage.getItem(this._key));
         if (preferences === null) {
             preferences = {
                 "night": false,
@@ -19,17 +23,25 @@ var ThemePreferences = {
         var original = this.get();
         original[key] = value;
 
-        localStorage.setItem("theme_preferences", JSON.stringify(original));
+        localStorage.setItem(this._key, JSON.stringify(original));
+        this.apply();
+    },
+
+    toggle: function(key) {
+        var original = this.get();
+        original[key] = !original[key];
+
+        localStorage.setItem(this._key, JSON.stringify(original));
         this.apply();
     },
 
     reset: function() {
-        localStorage.removeItem("theme_preferences");
+        localStorage.removeItem(this._key);
         this.apply();
     },
 
     enabled: function() {
-        return localStorage.getItem("theme_preferences") !== null;
+        return localStorage.getItem(this._key) !== null;
     },
 
     enable: function() {
@@ -37,7 +49,7 @@ var ThemePreferences = {
             return;
         }
 
-        localStorage.setItem("theme_preferences", JSON.stringify(this.get()));
+        localStorage.setItem(this._key, JSON.stringify(this.get()));
         this.apply();
     },
 
@@ -49,8 +61,10 @@ var ThemePreferences = {
         $(".preferences-legal").attr("data-click-next", next).show();
     },
 
-    apply: function() {
+    apply: function(light_apply) {
         var preferences = this.get();
+
+        var light = light_apply !== undefined;
 
         if (preferences.night) {
             $("body").addClass("night");
@@ -67,7 +81,7 @@ var ThemePreferences = {
                 $(".search-fastsearch-tip").hide();
             };
 
-            if (ThemeSearch.fastsearch.available()) {
+            if (ThemeSearch.fastsearch.available() || light) {
                 settext();
                 return;
             }
@@ -79,7 +93,7 @@ var ThemePreferences = {
             $(".preference-fastsearch").text("Enable fast search");
             $(".search-fastsearch-tip").show();
 
-            if (ThemeSearch.fastsearch.available()) {
+            if (ThemeSearch.fastsearch.available() && (!light)) {
                 ThemeSearch.fastsearch.disable();
             };
         }
@@ -95,6 +109,7 @@ var ThemePreferences = {
             $(".preferences-legal").hide();
 
             this.apply();
+            $(window).on("storage", this.callback_external_update);
             $(".preference-night").click(this.callback_night);
             $(".preference-fastsearch").click(this.callback_fastsearch);
             $(".preferences-legal-yes").click(this.callback_legal_yes);
@@ -105,11 +120,20 @@ var ThemePreferences = {
 
     // Callbacks
 
+    callback_external_update: function(e) {
+        if (e.key === this._key) {
+            // This will apply the new changes in light mode
+            // Light mode means no changes which can affect other tabs will be
+            // executed
+            ThemePreferences.apply(true);
+        }
+    },
+
     callback_night: function(e) {
         e.preventDefault();
 
         if (ThemePreferences.enabled()) {
-            ThemePreferences.set("night", !ThemePreferences.get("night"));
+            ThemePreferences.toggle("night");
         } else {
             ThemePreferences.show_legal(".preference-night");
         }
@@ -119,7 +143,7 @@ var ThemePreferences = {
         e.preventDefault();
 
         if (ThemePreferences.enabled()) {
-            ThemePreferences.set("fastsearch", !ThemePreferences.get("fastsearch"));
+            ThemePreferences.toggle("fastsearch");
         } else {
             ThemePreferences.show_legal(".preference-fastsearch");
         }
