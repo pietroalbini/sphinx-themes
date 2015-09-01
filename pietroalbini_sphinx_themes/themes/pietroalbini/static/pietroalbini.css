@@ -480,22 +480,23 @@ div.search-result p {
     }
 
     pre {
-        margin: 0 -2.1em;
-        padding: 1em 2.1em;
+        margin: 0 -2em;
+        padding: 1em 2em;
         border-left: 0;
         border-right: 0;
         border-radius: 0;
     }
 
     pre span.hll {
-        margin: 0 -2.1em;
-        padding: 0 2.1em;
+        margin: 0 -2em;
+        padding: 0 2em;
     }
 
     div.header h1 {
         float: none;
         text-align: center;
         margin-top: 0.7em;
+        line-height: 1.3em;
     }
 
     div.header div.search-bar {
@@ -505,6 +506,7 @@ div.search-result p {
 
     div.buildthedocs-warning {
         margin: 0 -0.9em;
+        line-height: 1.5em;
     }
 
     div.admonition {
