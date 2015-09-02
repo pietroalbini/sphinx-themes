@@ -47,6 +47,7 @@ var ThemeSearch = {
         }
 
         var apiobjs = this.api_objects();
+        var index = Search._index;
 
         var results = Search.query(term);
         if (results.length === 0) {
@@ -74,7 +75,8 @@ var ThemeSearch = {
                 var result = $("<div></div>").addClass("search-result");
                 result.addClass(type);
                 var link = $("<a></a>")
-                    .attr("href", this.url_for(item[0], item[2], term));
+                    .attr("href", this.url_for(item[0], item[2],
+                                    type !== "code" ? term : undefined));
 
                 if (type === "code") {
                     var content_box = $("<code></code");
@@ -90,7 +92,21 @@ var ThemeSearch = {
 
                 result.append(link);
                 if (type === "code") {
-                    result.append($("<p></p>").text(item[3]));
+                    var splitted = item[1].split(".");
+                    var objname = splitted.pop();
+                    var prefix = splitted.join(".");
+
+                    var indexobj = index.objects[prefix][objname];
+                    var objtype = index.objnames[indexobj[1]][2];
+                    var page_title = index.titles[indexobj[0]];
+                    var page_url = index.filenames[indexobj[0]];
+
+                    var sub = $("<p></p>").text(objtype+", in ");
+                    sub.append($("<a></a>")
+                               .attr("href", this.url_for(page_url, ""))
+                               .text(page_title)
+                    );
+                    result.append(sub);
                 }
                 $(".search-results-container."+type)
                     .append(result);
