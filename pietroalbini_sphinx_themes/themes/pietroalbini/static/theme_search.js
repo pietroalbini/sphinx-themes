@@ -62,28 +62,37 @@ var ThemeSearch = {
 
             for (var i = 0; i < results.length; i++) {
                 var item = results[results.length-i-1];
-                var is_code = apiobjs.indexOf(item[2].replace("#", "")) !== -1;
+
+                var type = "page";
+                if (apiobjs.indexOf(item[2].replace("#", "")) !== -1) {
+                    type = "code";
+                } else if (this.url_for(item[0], "") ===
+                           DOCUMENTATION_OPTIONS.TOC_URL) {
+                    type = "toc";
+                }
 
                 var result = $("<div></div>").addClass("search-result");
-                result.addClass(is_code ? "code" : "page");
+                result.addClass(type);
                 var link = $("<a></a>")
                     .attr("href", this.url_for(item[0], item[2], term));
 
-                if (is_code) {
+                if (type === "code") {
                     var content_box = $("<code></code");
                     var content = $("<span></span>").addClass("pre")
                                                     .text(item[1]);
                     content_box.append(content);
                     link.addClass("reference", "internal").append(content_box);
+                } else if (type === "toc") {
+                    link.text("Table of contents");
                 } else {
                     link.text(item[1]);
                 }
 
                 result.append(link);
-                if (item[3]) {
+                if (type === "code") {
                     result.append($("<p></p>").text(item[3]));
                 }
-                $(".search-results-container."+(is_code ? "code" : "page"))
+                $(".search-results-container."+type)
                     .append(result);
             }
 

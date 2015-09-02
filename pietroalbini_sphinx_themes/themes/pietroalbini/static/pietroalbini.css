@@ -451,6 +451,10 @@ div.search-result.code:before {
     height: 1.5em;
 }
 
+div.search-result.toc:before {
+    content: "\f0f6";
+}
+
 div.search-result p {
     margin: 0;
     font-size: 0.9em;
