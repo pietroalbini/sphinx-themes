@@ -461,6 +461,72 @@ div.search-result p {
 }
 
 
+/** GENINDEX **/
+
+div.genindex-jumpbox {
+    text-align: center;
+    margin-top: 1.4em;
+}
+
+div.genindex-jumpbox a {
+    display: inline-block;
+    width: 1.5em;
+    padding: 0.2em 0.1em;
+    margin: 0.3em;
+    border: 0.1em solid #dddddd;
+    border-radius: 0.2em;
+}
+
+div.genindex-jumpbox a:hover {
+    border-color: currentColor;
+}
+
+div.genindex-section {
+    padding: 1em 0;
+    border-top: 0.1em dotted #cccccc;
+}
+
+div.genindex-section:first-child {
+    border-top: 0;
+}
+
+div.genindex-section:after {
+    content: "";
+    height: 0;
+    visibility: hidden;
+    display: block;
+    clear: both;
+}
+
+div.genindex-section a.jump {
+    visibility: hidden;
+    height: 0;
+}
+
+div.genindex-section h2 {
+    float: left;
+    width: 2em;
+
+    margin: 0;
+    text-align: center;
+}
+
+div.genindex-section ul {
+    float: left;
+    margin: 0;
+    width: 40em;
+    padding-top: 0.2em;
+}
+
+div.genindex-section ul li ul {
+    padding-top: 0;
+}
+
+div.genindex-section ul li span {
+    font-size: 0.9em;
+}
+
+
 /** MOBILE STUFF **/
 
 @media all and (max-width: 63.2em) {
@@ -550,6 +616,25 @@ div.search-result p {
         visibility: hidden;
     }
 
+    div.genindex-section h2 {
+        float: none;
+        width: auto;
+        text-align: center;
+    }
+
+    div.genindex-section ul {
+        width: auto;
+        float: none;
+    }
+
+    div.genindex-section > ul {
+        padding-left: 1em;
+    }
+
+    div.genindex-section ul li a+span {
+        display: block;
+    }
+
 }
 
 @media all and (max-width: 25em) {
@@ -612,6 +697,15 @@ body.night div.buildthedocs-versions li.active a {
 
 body.night div.buildthedocs-versions li small {
     color: #ffffff;
+}
+
+body.night div.genindex-jumpbox a,
+body.night div.genindex-section {
+    border-color: #555555;
+}
+
+body.night div.genindex-jumpbox a:hover {
+    border-color: currentColor;
 }
 
 body.night span.highlighted {

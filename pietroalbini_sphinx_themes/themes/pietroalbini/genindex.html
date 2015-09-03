@@ -1,0 +1,49 @@
+{%- extends "layout.html" %}
+{% set title = "Documentation index" %}
+
+{% block head_extra %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ pathto("_static/theme_genindex.js", 1) }}"></script>
+{% endblock %}
+
+{% block body %}
+
+<h1>Documentation index</h1>
+
+<div class="genindex-jumpbox">
+    {% for key, dummy in genindexentries -%}
+        <a href="#{{ key }}">{{ key }}</a>
+    {%- endfor %}
+</div>
+
+<div>
+    {%- for key, entries in genindexentries %}
+    <div class="genindex-section">
+        <a class="jump" name="{{ key }}"></a>
+
+        <h2>{{ key }}</h2>
+        <ul>
+            {%- for entry in entries %}
+                <li>
+                {% if entry[1][0]|length %}
+                    <a href="{{ entry[1][0][0][1] }}">{{ entry[0] }}</a>
+                {% else %}
+                    {{ entry[0] }}
+                {% endif %}
+                {% if entry[1][1] %} {# subitems #}
+                    <ul>
+                    {% for sub in entry[1][1] %}
+                        <li>
+                            <a href="{{ sub[1][0][1] }}">{{ sub[0] }}</a>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+                </li>
+            {%- endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
