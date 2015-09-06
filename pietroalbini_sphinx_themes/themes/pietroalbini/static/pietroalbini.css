@@ -256,6 +256,10 @@ div.search-bar button {
     color: #cccccc;
 }
 
+div.accent-color-bar {
+    height: 0.3em;
+}
+
 div.header {
     margin: 1.7em 0;
 }
@@ -383,7 +387,7 @@ div.buildthedocs-warning {
     color: #ffffff;
     text-align: center;
     line-height: 1.4em;
-    padding: 0.5em 1.9em;
+    padding: 0.5em 1.9em 0.1em 1.9em;
     font-size: 0.9em;
 }
 
@@ -573,8 +577,11 @@ div.genindex-section ul li span {
         margin: 0.9em auto 0 auto;
     }
 
-    div.buildthedocs-warning {
+    div.buildthedocs-warning, div.accent-color-bar {
         margin: 0 -0.9em;
+    }
+
+    div.buildthedocs-warning {
         line-height: 1.5em;
     }
 
