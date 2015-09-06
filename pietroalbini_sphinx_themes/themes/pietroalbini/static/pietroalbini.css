@@ -584,6 +584,10 @@ div.genindex-section ul li span {
         padding: 0 2em;
     }
 
+    div.accent-color-bar {
+        margin: 0 -0.8em;
+    }
+
     div.header h1 {
         float: none;
         text-align: center;
@@ -596,7 +600,7 @@ div.genindex-section ul li span {
         margin: 0.9em auto 0 auto;
     }
 
-    div.buildthedocs-warning, div.accent-color-bar {
+    div.buildthedocs-warning {
         margin: 0 -0.9em;
     }
 
