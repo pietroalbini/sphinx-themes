@@ -12,13 +12,15 @@
 
 <div class="genindex-jumpbox">
     {% for key, dummy in genindexentries -%}
-        <a href="#{{ key }}">{{ key }}</a>
+        <a href="#{{ key }}" {% if key|length > 1 %}class="long-key"{% endif %}>
+            {{ key }}
+        </a>
     {%- endfor %}
 </div>
 
 <div>
     {%- for key, entries in genindexentries %}
-    <div class="genindex-section">
+    <div class="genindex-section{% if key|length > 1 %} long-key{% endif %}">
         <a class="jump" name="{{ key }}"></a>
 
         <h2>{{ key }}</h2>
