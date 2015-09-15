@@ -1,11 +1,6 @@
 {%- extends "layout.html" %}
 {% set title = "Documentation index" %}
 
-{% block head_extra %}
-    {{ super() }}
-    <script type="text/javascript" src="{{ pathto("_static/theme_genindex.js", 1) }}"></script>
-{% endblock %}
-
 {% block body %}
 
 <h1>Documentation index</h1>
@@ -28,7 +23,7 @@
             {%- for entry in entries %}
                 <li>
                 {% if entry[1][0]|length %}
-                    <a href="{{ entry[1][0][0][1] }}">{{ entry[0] }}</a>
+                    <a href="{{ entry[1][0][0][1] }}" class="internal">{{ entry[0] }}</a>
                 {% else %}
                     {{ entry[0] }}
                 {% endif %}
@@ -36,7 +31,7 @@
                     <ul>
                     {% for sub in entry[1][1] %}
                         <li>
-                            <a href="{{ sub[1][0][1] }}">{{ sub[0] }}</a>
+                            <a href="{{ sub[1][0][1] }}" class="internal">{{ sub[0] }}</a>
                         </li>
                     {% endfor %}
                     </ul>
@@ -47,5 +42,10 @@
     </div>
     {% endfor %}
 </div>
+<script type="text/javascript">
+    $(function() {
+        ThemeGenindex();
+    });
+</script>
 
 {% endblock %}

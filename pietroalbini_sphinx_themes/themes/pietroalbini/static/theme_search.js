@@ -1,29 +1,32 @@
 var ThemeSearch = {
 
     init: function() {
+        if (ThemeSinglePage.enabled) {
+
+            $("form#search").submit(function(e) {
+                e.preventDefault();
+                var newquery = $("#search-input").val();
+
+                ThemeSinglePage.load_abs("search/?q="+newquery);
+            });
+
+            ThemeSinglePage.onload(function() {
+                if( ThemeSinglePage.current() == "search" ) {
+                    this.page_loaded();
+                } else {
+                    // Reset the input value on non-search pages
+                    $("#search-input").val("");
+                }
+            }.bind(this));
+
+            Search.loadIndex(DOCUMENTATION_OPTIONS.URL_ROOT+"searchindex.js");
+        }
+    },
+
+    page_loaded: function() {
         $(".search-searching").show();
         $(".search-nothing").hide();
         $(".search-results").hide();
-
-        $("form#search").submit(function(e) {
-            e.preventDefault();
-            var newquery = $("#search-input").val();
-            console.log(newquery);
-
-            ThemeSearch.execute(newquery);
-
-            // If the History API is supported, change the page URL
-            if (!!(window.history && history.pushState)) {
-                var newurl = location.href.split("?")[0]+"?q="+newquery;
-                history.pushState(null, document.title, newurl);
-            }
-        });
-
-        if (this.fastsearch.available()) {
-            Search._index = this.fastsearch.get_cache();
-        } else {
-            Search.loadIndex(DOCUMENTATION_OPTIONS.URL_ROOT+"searchindex.js");
-        }
 
         if ($.getQueryParameters().q) {
             var query = $.getQueryParameters().q[0];
@@ -32,8 +35,8 @@ var ThemeSearch = {
             this.execute(query);
         }
 
-        if (this.fastsearch.available()) {
-            this.fastsearch.update();
+        if (!ThemeSinglePage.enabled) {
+            Search.loadIndex(DOCUMENTATION_OPTIONS.URL_ROOT+"searchindex.js");
         }
     },
 
@@ -76,7 +79,8 @@ var ThemeSearch = {
                 result.addClass(type);
                 var link = $("<a></a>")
                     .attr("href", this.url_for(item[0], item[2],
-                                    type !== "code" ? term : undefined));
+                                    type !== "code" ? term : undefined))
+                    .addClass("internal");
 
                 if (type === "code") {
                     var content_box = $("<code></code");
@@ -105,6 +109,7 @@ var ThemeSearch = {
                     sub.append($("<a></a>")
                                .attr("href", this.url_for(page_url, ""))
                                .text(page_title)
+                               .addClass("internal")
                     );
                     result.append(sub);
                 }
@@ -133,6 +138,9 @@ var ThemeSearch = {
             $(".search-results").show();
             $(".search-searching").hide();
             $(".search-nothing").hide();
+
+            // Add listeners to links
+            if (ThemeSinglePage.enabled) ThemeSinglePage.hook_links();
         }
     },
 

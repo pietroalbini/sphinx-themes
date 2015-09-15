@@ -1,5 +1,4 @@
-$(function() {
-
+function ThemeGenindex() {
     // Unfortunately genindex is impossible to customize how I want from the
     // template files, so I'll do that with JavaScript
     $(".genindex-section > ul > li").each(function() {
@@ -19,7 +18,7 @@ $(function() {
 
             ul.prepend($("<li></li>").append($("<a></a>")
                 .attr("href", $(this).children("a").attr("href"))
-                .text(result[2])));
+                .text(result[2]).addClass("internal")));
 
             ul.children("li").children("a").each(function() {
                 var ul_result = (/^\((.*)\)$/).exec($(this).text());
@@ -37,4 +36,17 @@ $(function() {
         }
     });
 
+    if (ThemeSinglePage.enabled) {
+        ThemeSinglePage.hook_links();
+    }
+}
+
+$(function() {
+    if (ThemeSinglePage.enabled) {
+        ThemeSinglePage.onload(function() {
+            if (ThemeSinglePage.current() == "genindex") {
+                ThemeGenindex();
+            }
+        });
+    }
 });

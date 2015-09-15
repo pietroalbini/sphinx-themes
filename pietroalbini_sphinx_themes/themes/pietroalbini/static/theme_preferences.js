@@ -9,7 +9,6 @@ var ThemePreferences = {
         if (preferences === null) {
             preferences = {
                 "night": false,
-                "fastsearch": false,
             };
         }
 
@@ -62,10 +61,19 @@ var ThemePreferences = {
     },
 
     apply: function(light_apply) {
+        if (localStorage === undefined) {
+            $(".preferences-error").show();
+            $(".preferences").hide();
+            $(".preferences-legal").hide();
+
+            return;
+        }
+
         var preferences = this.get();
 
         var light = light_apply !== undefined;
 
+        $(".preferences-legal").hide();
         if (preferences.night) {
             $("body").addClass("night");
             $(".preference-night").text("Disable night mode");
@@ -73,45 +81,18 @@ var ThemePreferences = {
             $("body").removeClass("night");
             $(".preference-night").text("Enable night mode");
         }
-
-        if (preferences.fastsearch) {
-            var settext = function() {
-                $(".preference-fastsearch").text("Disable fast search")
-                                           .removeClass("disabled");
-                $(".search-fastsearch-tip").hide();
-            };
-
-            if (ThemeSearch.fastsearch.available() || light) {
-                settext();
-                return;
-            }
-
-            $(".preference-fastsearch").text("Preparing fast search...")
-                                       .addClass("disabled");
-            ThemeSearch.fastsearch.enable(settext);
-        } else {
-            $(".preference-fastsearch").text("Enable fast search");
-            $(".search-fastsearch-tip").show();
-
-            if (ThemeSearch.fastsearch.available() && (!light)) {
-                ThemeSearch.fastsearch.disable();
-            };
-        }
     },
 
     init: function() {
 
-        if (localStorage === undefined) {
-            $(".preferences-error").show();
-            $(".preferences").hide();
-            $(".preferences-legal").hide();
-        } else {
-            $(".preferences-legal").hide();
+        if (ThemeSinglePage.enabled) ThemeSinglePage.onload(function() {
+            this.apply();
+        }.bind(this));
 
+        if (localStorage !== undefined) {
             this.apply();
             $(window).on("storage", this.callback_external_update);
             $(".preference-night").click(this.callback_night);
-            $(".preference-fastsearch").click(this.callback_fastsearch);
             $(".preferences-legal-yes").click(this.callback_legal_yes);
             $(".preferences-legal-no").click(this.callback_legal_no);
         }
@@ -136,16 +117,6 @@ var ThemePreferences = {
             ThemePreferences.toggle("night");
         } else {
             ThemePreferences.show_legal(".preference-night");
-        }
-    },
-
-    callback_fastsearch: function(e) {
-        e.preventDefault();
-
-        if (ThemePreferences.enabled()) {
-            ThemePreferences.toggle("fastsearch");
-        } else {
-            ThemePreferences.show_legal(".preference-fastsearch");
         }
     },
 

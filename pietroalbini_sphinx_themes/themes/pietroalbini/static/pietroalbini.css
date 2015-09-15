@@ -272,15 +272,26 @@ div.header:after {
     clear: both;
 }
 
-div.header h1 {
+div.header div.title-container {
     float: left;
+}
+
+div.header div.title-container h1 {
     margin: 0;
-    line-height: 1em;
+    line-height: 1.2em;
+}
+
+div.header div.title-container h1.loading {
+    color: #cccccc;
+}
+
+div.header div.title-container h1.loading i.fa {
+    margin-right: 0.3em;
 }
 
 div.header div.search-bar {
     float: right;
-    margin: 0;
+    margin-top: 0.4em;
 }
 
 div.nav-container {
@@ -588,7 +599,7 @@ div.genindex-section ul li span {
         margin: 0 -0.8em;
     }
 
-    div.header h1 {
+    div.header div.title-container {
         float: none;
         text-align: center;
         margin-top: 0.7em;
@@ -704,6 +715,10 @@ body.night hr, body.night pre, body.night span.pre {
 }
 
 body.night div.nav-container span {
+    color: #555555;
+}
+
+body.night div.title-container h1.loading {
     color: #555555;
 }
 

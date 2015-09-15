@@ -4,5 +4,6 @@ $(function() {
     $(".nojs").hide();
 
     ThemePreferences.init();
+    ThemeSinglePage.init();
 
 });

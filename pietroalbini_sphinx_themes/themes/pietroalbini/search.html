@@ -34,11 +34,9 @@
         <div class="search-results-container toc">
         </div>
     </div>
-    <p class="jsonly small search-fastsearch-tip">
-        <b>Tip</b>: you can speed up searches by enabling the
-        <i>fast search</i> preference in the footer.
-    </p>
     <script type="text/javascript">
-        $(function() { ThemeSearch.init(); });
+        $(function() {
+            ThemeSearch.page_loaded();
+        });
     </script>
 {%- endblock -%}
