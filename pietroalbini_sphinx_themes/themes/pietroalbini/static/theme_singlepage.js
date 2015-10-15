@@ -104,7 +104,7 @@ var ThemeSinglePage = {
 
     _replace_content: function(content, link, push) {
         // Cheaty way to parse the html element
-        var newbody = document.implementation.createHTMLDocument();
+        var newbody = document.implementation.createHTMLDocument("Blame Edge");
         newbody.documentElement.innerHTML = content;
 
         function copy_element(selector) {
