@@ -135,17 +135,19 @@ a.reference:hover span.pre {
 pre {
     font-family: "Hack", monospace;
     font-size: 0.8em;
-    border: 0.1em solid #dddddd;
-    padding: 0.7em 1em;
-    border-radius: 0.6em;
+    padding: 0.8em 1.2em;
+    border-radius: 0.3em;
     overflow-x: auto;
-    line-height: 1.6em;
+    line-height: 1.4em;
+    background: #fafafa;
+    box-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.2);
 }
 
 pre span.hll {
-    margin: 0 -1em;
-    padding: 0 1em;
+    margin: 0 -1.2em;
+    padding: 0 1.2em;
     display: block;
+    width: inherit;
 }
 
 span.pre {
@@ -715,7 +717,7 @@ body.night {
 }
 
 body.night hr, body.night pre, body.night span.pre {
-    border-color: #555555;
+    background: #3c3c3c;
 }
 
 body.night div.nav-container span {
@@ -777,7 +779,7 @@ body.night span.highlighted {
 /** PYGMENTS **/
 
 .highlight .hll {
-    background: #f3f3f3 !important;
+    background: #eee !important;
 }
 
 .highlight .k, .highlight .kc, .highlight .kd, .highlight .kn, .highlight .kp,
@@ -823,14 +825,14 @@ body.night span.highlighted {
 }
 
 body.night .highlight .hll {
-    background : #3f3f3f !important;
+    background : #424242 !important;
 }
 
 body.night .highlight .c, body.night .highlight .cm, body.night .highlight .cp,
 body.night .highlight .c1, body.night .highlight .cs,
 body.night .highlight .go, body.night .highlight .sd,
 body.night .highlight .gp {
-    color: #555555;
+    color: #777;
 }
 
 body.night .highlight .o, body.night .highlight .nd {
