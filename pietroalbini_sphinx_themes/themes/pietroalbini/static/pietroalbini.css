@@ -228,10 +228,10 @@ div.clearer {
 }
 
 div.search-bar {
-    border: 0.1em solid #cccccc;
     border-radius: 0.2em;
-    background: #ffffff;
-    width: 21.7em
+    width: 21.7em;
+    background: #f8f8f8;
+    box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.1);
 }
 
 div.search-bar form {
@@ -241,7 +241,7 @@ div.search-bar form {
 div.search-bar input {
     border: 0;
     background: transparent;
-    padding: 0.4em 0.7em;
+    padding: 0.5em 0.7em;
     width: 20em;
 }
 
@@ -260,8 +260,10 @@ div.accent-color-bar {
     height: 0.3em;
 }
 
-div.header {
-    margin: 1.7em 0;
+div.headerwrapper {
+    background: #eee;
+    margin-bottom: 0.6em;
+    padding: 1.5em 0;
 }
 
 div.header:after {
@@ -278,7 +280,7 @@ div.header div.title-container {
 
 div.header div.title-container h1 {
     margin: 0;
-    line-height: 1.2em;
+    line-height: 1.5em;
 }
 
 div.header div.title-container h1.loading {
@@ -291,7 +293,7 @@ div.header div.title-container h1.loading i.fa {
 
 div.header div.search-bar {
     float: right;
-    margin-top: 0.4em;
+    margin-top: 0.6em;
 }
 
 div.nav-container {
@@ -341,10 +343,6 @@ div.nav-container .right {
 div.nav-container a.right:hover {
     padding-left: 0.2em;
     padding-right: 0;
-}
-
-div.headerwrapper hr {
-    margin-bottom: 0.5em;
 }
 
 div.highlight {
@@ -599,10 +597,14 @@ div.genindex-section ul li span {
         margin: 0 -0.8em;
     }
 
+    div.headerwrapper {
+        margin-left: -0.8em;
+        margin-right: -0.8em;
+    }
+
     div.header div.title-container {
         float: none;
         text-align: center;
-        margin-top: 0.7em;
         line-height: 1.3em;
     }
 
@@ -716,6 +718,10 @@ body.night hr, body.night pre, body.night span.pre {
 
 body.night div.nav-container span {
     color: #555555;
+}
+
+body.night div.headerwrapper {
+    background: #3b3b3b;
 }
 
 body.night div.title-container h1.loading {
