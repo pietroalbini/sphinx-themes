@@ -709,73 +709,6 @@ div.genindex-section ul li span {
 }
 
 
-/** NIGHT THEME **/
-
-body.night {
-    background: #333333;
-    color: #ffffff;
-}
-
-body.night hr, body.night pre, body.night span.pre {
-    background: #3c3c3c;
-}
-
-body.night div.nav-container span {
-    color: #555555;
-}
-
-body.night div.headerwrapper {
-    background: #3b3b3b;
-}
-
-body.night div.title-container h1.loading {
-    color: #555555;
-}
-
-body.night div.search-bar {
-    background: #333333;
-    border-color: #555555;
-}
-
-body.night div.search-bar input {
-    color: #ffffff;
-}
-
-body.night div.search-bar button {
-    color: #555555;
-}
-
-body.night div.footer, body.night div.footer ul li a {
-    color: #888888;
-    border-color: #555555;
-}
-
-body.night div.footer ul li a:hover {
-    border-color: #888888;
-}
-
-body.night div.buildthedocs-versions li.active a {
-    color: #ffffff;
-}
-
-body.night div.buildthedocs-versions li small {
-    color: #ffffff;
-}
-
-body.night div.genindex-jumpbox a,
-body.night div.genindex-section {
-    border-color: #555555;
-}
-
-body.night div.genindex-jumpbox a:hover {
-    border-color: currentColor;
-}
-
-body.night span.highlighted {
-    background: #777777;
-}
-
-
 /** PYGMENTS **/
 
 .highlight .hll {
@@ -822,37 +755,4 @@ body.night span.highlighted {
 .highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi,
 .highlight .mo, .highlight .il {
     color: #8700ff;
-}
-
-body.night .highlight .hll {
-    background : #424242 !important;
-}
-
-body.night .highlight .c, body.night .highlight .cm, body.night .highlight .cp,
-body.night .highlight .c1, body.night .highlight .cs,
-body.night .highlight .go, body.night .highlight .sd,
-body.night .highlight .gp {
-    color: #777;
-}
-
-body.night .highlight .o, body.night .highlight .nd {
-    color: #bbbbbb;
-}
-
-body.night .highlight .m, body.night .highlight .mb, body.night .highlight .mf,
-body.night .highlight .mh, body.night .highlight .mi,
-body.night .highlight .mo, body.night .highlight .il {
-    color: #bb70ff;
-}
-
-body.night .ni {
-    color: #ff9b4b;
-}
-
-body.night .highlight .s, body.night .highlight .sb, body.night .hightlight .sc,
-body.night .highlight .s2, body.night .highlight .se,
-body.night .highlight .sh, body.night .highlight .si,
-body.night .highlight .sx, body.night .highlight .sr,
-body.night .highlight .s1, body.night .highlight .ss {
-    color: #62ef62;
 }
