@@ -232,32 +232,15 @@ div.clearer {
 }
 
 div.search-bar {
-    border-radius: 0.2em;
     width: 21.7em;
-    background: #f8f8f8;
-    box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.1);
-}
-
-div.search-bar form {
-    display: inline-block;
 }
 
 div.search-bar input {
-    border: 0;
-    background: transparent;
+    border: 0.1em solid #ddd;
+    border-radius: 0.2em;
     padding: 0.5em 0.7em;
-    width: 20em;
-}
-
-div.search-bar button {
-    background: transparent;
-    border: 0;
-    padding: 0;
-    margin: 0;
-    margin-right: 0.5em;
-    cursor: pointer;
-
-    color: #cccccc;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 div.accent-color-bar {
@@ -265,9 +248,9 @@ div.accent-color-bar {
 }
 
 div.headerwrapper {
-    background: #eee;
     margin-bottom: 0.6em;
     padding: 1.5em 0;
+    border-bottom: 0.1em dotted #ccc;
 }
 
 div.header:after {
@@ -411,20 +394,6 @@ div.buildthedocs-versions li.active a {
 
 div.buildthedocs-versions li small {
     color: #333333;
-}
-
-div.search-box input {
-    border: none;
-    border-bottom: 0.1em solid #dddddd;
-    padding: 0.4em 0.6em;
-    width: 50%;
-}
-
-div.search-box button {
-    width: 10%;
-    background: transparent;
-    border: none;
-    margin: 0;
 }
 
 span.highlighted {
@@ -696,14 +665,6 @@ div.genindex-section ul li span {
 
     div.search-bar {
         width: 100%;
-    }
-
-    div.search-bar input {
-        width: 100%;
-    }
-
-    div.search-bar button {
-        display: none;
     }
 
 }
