@@ -94,8 +94,12 @@ dl dd {
     margin: 0 0 0 1.5em;
 }
 
-dl dd p {
-    margin: 0.3em 0;
+dl dt {
+    padding: 0.8em 0.5em;
+    border-bottom: 0.15em solid #000;
+
+    white-space: nowrap;
+    overflow-x: auto;
 }
 
 table.field-list .field-name {
@@ -104,6 +108,10 @@ table.field-list .field-name {
     font-weight: 400;
     font-style: italic;
     padding-right: 1em;
+}
+
+table.field-list .field-body p {
+    margin: 0;
 }
 
 table.field-list .field-body ul {

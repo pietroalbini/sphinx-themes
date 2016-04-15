@@ -7,6 +7,10 @@ div.admonition p.admonition-title {
     font-family: "{{ theme_titles_font }}";
 }
 
+dl dt {
+    border-color: {{ theme_accent_color }};
+}
+
 div.buildthedocs-warning, div.accent-color-bar {
     background: {{ theme_accent_color }};
 }
